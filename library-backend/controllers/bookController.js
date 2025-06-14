@@ -16,7 +16,7 @@ export const getAllBooks = (req, res) => {
 export const getBookDetails = (req, res) => {
   const query = `
     SELECT 
-      b.id AS book_id,
+      b.id ,
       b.title,
       b.stock,
       g.description AS genre,
