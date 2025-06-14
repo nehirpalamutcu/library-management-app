@@ -14,6 +14,29 @@ export const getAllBorrowings = (req, res) => {
       res.json(results[0]);
     });
   }
+  export const getBorrowingsByUserId = (req, res) => {
+    const { user_id } = req.params;
+  
+    const query = "SELECT * FROM borrowings WHERE user_id = ?";
+  
+    db.query(query, [user_id], (err, results) => {
+      if (err) {
+        console.error("Error fetching borrowings:", err.message);
+        return res.status(500).json({ error: "Database error" });
+      }
+  
+      if (results.length === 0) {
+        return res.status(404).json({ message: "No borrowings found for this user" });
+      }
+  
+      res.json(results);
+    });
+  };
+
+  
+  
+  
+  
   export const createBorrowing = (req, res) => {
     const { user_id, book_id, author_id, borrow_date, due_date, borrow_status_id } = req.body;
   

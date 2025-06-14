@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllBorrowings,
   getBorrowingById,
+  getBorrowingsByUserId,
   createBorrowing,
   updateBorrowing,
   deleteBorrowing,
@@ -10,10 +11,13 @@ import {
 const router = express.Router();
 
 
+router.get("/user/:user_id", getBorrowingsByUserId); 
+
+
 router.get("/", getAllBorrowings);
 
 
-router.get("/:id", getBorrowingById);
+router.get("/:id", getBorrowingById); 
 
 
 router.post("/", createBorrowing);
