@@ -18,6 +18,7 @@ app.use(express.json());
 // Author routes
 app.use("/authors", authorRoutes);
 
+//Book routes
 app.use("/books", bookRoutes);
 
 // Start server

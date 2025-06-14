@@ -51,3 +51,113 @@ export const getBookByTitle = (req, res) => {
     res.json(results);
   });
 };
+
+export const createBook = (req, res) => {
+  const { title, release_date, author_id, genre_id, stock } = req.body;
+
+  if (!title || !release_date || !author_id || !genre_id || stock == null) {
+    return res.status(400).json({ error: "Missing required book fields." });
+  }
+
+  const query = `
+    INSERT INTO books (title, release_date, author_id, genre_id, stock)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+  db.query(
+    query,
+    [title, release_date, author_id, genre_id, stock],
+    (err, result) => {
+      if (err) {
+        console.error("Error creating book:", err.message);
+        return res.status(500).json({ error: "Failed to create book" });
+      }
+
+      res.status(201).json({
+        message: "Book created successfully",
+        bookId: result.insertId,
+      });
+    }
+  );
+};
+
+export const updateBook = (req, res) => {
+  const { id, title, release_date, author_id, genre_id, stock } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ error: "Book ID is required." });
+  }
+
+  if (!title && !release_date && !author_id && !genre_id && stock == null) {
+    return res
+      .status(400)
+      .json({ error: "At least one field must be provided for update." });
+  }
+
+  const fields = [];
+  const values = [];
+
+  if (title) {
+    fields.push("title = ?");
+    values.push(title);
+  }
+
+  if (release_date) {
+    fields.push("release_date = ?");
+    values.push(release_date);
+  }
+
+  if (author_id) {
+    fields.push("author_id = ?");
+    values.push(author_id);
+  }
+
+  if (genre_id) {
+    fields.push("genre_id = ?");
+    values.push(genre_id);
+  }
+
+  if (stock != null) {
+    fields.push("stock = ?");
+    values.push(stock);
+  }
+
+  values.push(id);
+
+  const query = `UPDATE books SET ${fields.join(", ")} WHERE id = ?`;
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Error updating book:", err.message);
+      return res.status(500).json({ error: "Failed to update book." });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Book not found." });
+    }
+
+    res.json({ message: "Book updated successfully." });
+  });
+};
+
+export const deleteBook = (req, res) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ error: "Book ID is required." });
+  }
+
+  const query = "DELETE FROM books WHERE id = ?";
+
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      console.error("Error deleting book:", err.message);
+      return res.status(500).json({ error: "Failed to delete book." });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Book not found." });
+    }
+
+    res.json({ message: "Book deleted successfully." });
+  });
+};
