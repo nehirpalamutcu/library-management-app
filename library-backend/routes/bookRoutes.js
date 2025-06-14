@@ -7,11 +7,14 @@ import {
   createBook,
   updateBook,
   deleteBook,
+  getBookDetails,
 } from "../controllers/bookController.js";
 
 const router = express.Router();
 
 router.get("/", getAllBooks);
+
+router.get("/details", getBookDetails);
 
 router.get("/stock", getBookByStock);
 

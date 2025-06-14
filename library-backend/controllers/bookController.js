@@ -13,6 +13,31 @@ export const getAllBooks = (req, res) => {
   });
 };
 
+export const getBookDetails = (req, res) => {
+  const query = `
+    SELECT 
+      b.title,
+      b.stock,
+      g.description AS genre,
+      b.genre_id,
+      b.release_date,
+      CONCAT(a.first_name, ' ', a.last_name) AS author,
+      b.author_id
+    FROM books b
+    JOIN authors a ON b.author_id = a.id
+    JOIN t_genres g ON b.genre_id = g.id
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching book details:", err.message);
+      return res.status(500).json({ error: "Failed to fetch book details." });
+    }
+
+    res.json(results);
+  });
+};
+
 export const getBookByStock = (req, res) => {
   const { minStock } = req.query;
 
