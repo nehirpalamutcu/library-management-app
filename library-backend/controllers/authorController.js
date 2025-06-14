@@ -31,12 +31,12 @@ export const getAuthorById = (req, res) => {
   });
 };
 
-export const getAuthorByLastName = (req, res) => {
-  const { lastName } = req.query;
+export const getAuthorByFullName = (req, res) => {
+  const { firstName, lastName } = req.query;
 
-  const query = "select * from authors where last_name = ?";
+  const query = "select * from authors where first_name = ? and last_name = ?";
 
-  db.query(query, [lastName], (err, results) => {
+  db.query(query, [firstName, lastName], (err, results) => {
     if (err) {
       console.error("Error fetching author:", err.message);
       return res.status(500).json({ error: "Failed to fetch author" });
@@ -53,10 +53,8 @@ export const getAuthorByLastName = (req, res) => {
 export const createAuthor = (req, res) => {
   const { first_name, last_name, bio } = req.body;
 
-  if (!first_name || !last_name) {
-    return res
-      .status(400)
-      .json({ error: "First name and last name are required." });
+  if (!first_name) {
+    return res.status(400).json({ error: "First name is required." });
   }
 
   const query =

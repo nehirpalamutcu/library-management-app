@@ -2,7 +2,7 @@ import express from "express";
 import {
   getAllAuthors,
   getAuthorById,
-  getAuthorByLastName,
+  getAuthorByFullName,
   createAuthor,
   updateAuthor,
   deleteAuthor,
@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.get("/", getAllAuthors);
 
-router.get("/getAuthorByLastName", getAuthorByLastName);
+router.get("/getAuthorByFullName", getAuthorByFullName);
 
 router.get("/:id", getAuthorById);
 
