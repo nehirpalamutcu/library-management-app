@@ -5,6 +5,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import authorRoutes from "./routes/authorRoutes.js";
+import bookRoutes from "./routes/bookRoutes.js";
 
 dotenv.config();
 
@@ -17,8 +18,10 @@ app.use(express.json());
 // Author routes
 app.use("/authors", authorRoutes);
 
+app.use("/books", bookRoutes);
+
 // Start server
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
