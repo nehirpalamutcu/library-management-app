@@ -6,6 +6,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authorRoutes from "./routes/authorRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
+import borrowingsRoutes from "./routes/borrowingsRoutes.js";
 
 dotenv.config();
 
@@ -17,9 +18,10 @@ app.use(express.json());
 
 // Author routes
 app.use("/authors", authorRoutes);
-
-//Book routes
+// Book routes
 app.use("/books", bookRoutes);
+// Borrowing routes
+app.use("/borrowings", borrowingsRoutes);
 
 // Start server
 const PORT = process.env.PORT || 3000;
