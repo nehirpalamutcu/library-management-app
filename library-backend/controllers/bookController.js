@@ -52,30 +52,6 @@ export const getBookByTitle = (req, res) => {
   });
 };
 
-export const getBooksByGenreDescription = (req, res) => {
-  const { genre } = req.query;
-
-  if (!genre) {
-    return res.status(400).json({ error: "Genre description is required." });
-  }
-
-  const query = `
-    SELECT b.*
-    FROM books b
-    JOIN t_genres g ON b.genre_id = g.id
-    WHERE lower(g.description) LIKE ?
-  `;
-
-  db.query(query, [`%${genre}%`], (err, results) => {
-    if (err) {
-      console.error("Error fetching books by genre:", err.message);
-      return res.status(500).json({ error: "Failed to fetch books." });
-    }
-
-    res.json(results);
-  });
-};
-
 export const createBook = (req, res) => {
   const { title, release_date, author_id, genre_id, stock } = req.body;
 
