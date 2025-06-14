@@ -3,6 +3,7 @@ import {
   getAllBooks,
   getBookByStock,
   getBookByTitle,
+  getBooksByGenreDescription,
   createBook,
   updateBook,
   deleteBook,
@@ -15,6 +16,8 @@ router.get("/", getAllBooks);
 router.get("/stock", getBookByStock);
 
 router.get("/title", getBookByTitle);
+
+router.get("/bygenre", getBooksByGenreDescription);
 
 router.post("/", createBook);
 
