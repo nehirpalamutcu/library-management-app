@@ -31,3 +31,23 @@ export const getBookByStock = (req, res) => {
     res.json(results);
   });
 };
+
+export const getBookByTitle = (req, res) => {
+  const { bookTitle } = req.query;
+
+  if (!bookTitle) {
+    return res
+      .status(400)
+      .json({ error: "Title query parameter is required." });
+  }
+  const query = "select * from books where title like ?";
+
+  db.query(query, [`%${bookTitle}%`], (err, results) => {
+    if (err) {
+      console.error("Error searching books by title", err.message);
+      return res.status(500).json({ error: "Failed to search books" });
+    }
+
+    res.json(results);
+  });
+};
