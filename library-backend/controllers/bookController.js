@@ -140,7 +140,7 @@ export const updateBook = (req, res) => {
 };
 
 export const deleteBook = (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
 
   if (!id) {
     return res.status(400).json({ error: "Book ID is required." });
