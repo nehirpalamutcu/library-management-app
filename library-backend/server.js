@@ -9,7 +9,7 @@ import bookRoutes from "./routes/bookRoutes.js";
 import borrowingsRoutes from "./routes/borrowingsRoutes.js";
 import borrowStatusRoutes from "./routes/borrowStatusRoutes.js";
 import genreRoutes from "./routes/genreRoutes.js";
-
+import finesRoutes from "./routes/finesRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -32,6 +32,10 @@ app.use("/borrow-status", borrowStatusRoutes);
 
 //Genre routes
 app.use("/genres", genreRoutes);
+
+// Fines routes
+app.use("/fines", finesRoutes);
+
 
 // Start server
 const PORT = process.env.PORT || 3000;
