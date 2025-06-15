@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getAllBooks } from "../services/bookService";
+import { getAllBooks, deleteBookById } from "../services/bookService";
 import { getAllGenres } from "../services/genreService";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import BookTable from "../components/BookTable";
 import FilterSidebar from "../components/FilterSidebar";
 import { getAllAuthors } from "../services/authorsService";
+import { toast } from "react-toastify";
 
 function DashboardPage() {
   const [books, setBooks] = useState([]);
@@ -22,17 +23,17 @@ function DashboardPage() {
   const [genres, setGenres] = useState([]);
   const [authors, setAuthors] = useState([]);
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const allBooks = await getAllBooks();
-        setBooks(allBooks);
-        setFilteredBooks(allBooks);
-      } catch (err) {
-        console.error("Error fetching books:", err);
-      }
-    };
+  const fetchBooks = async () => {
+    try {
+      const allBooks = await getAllBooks();
+      setBooks(allBooks);
+      setFilteredBooks(allBooks);
+    } catch (err) {
+      console.error("Error fetching books:", err);
+    }
+  };
 
+  useEffect(() => {
     fetchBooks();
 
     const fetchGenres = async () => {
@@ -61,6 +62,16 @@ function DashboardPage() {
   useEffect(() => {
     searchByTitle();
   }, [searchTitle]);
+
+  const handleDelete = async (id) => {
+    try {
+      const result = await deleteBookById(id);
+      toast.success(result.message);
+      fetchBooks();
+    } catch (error) {
+      toast.error("Failed to delete the book.", error);
+    }
+  };
 
   const searchByTitle = () => {
     let filtered = books;
@@ -143,7 +154,7 @@ function DashboardPage() {
             value={searchTitle}
             onChange={(e) => setSearchTitle(e.target.value)}
           />
-          <BookTable books={filteredBooks} />
+          <BookTable books={filteredBooks} onDelete={handleDelete} />
         </Col>
       </Row>
     </Container>

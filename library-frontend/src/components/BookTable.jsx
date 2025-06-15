@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { Table, Pagination } from "react-bootstrap";
+import { Table, Pagination, Button } from "react-bootstrap";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-function BookTable({ books = [] }) {
+function BookTable({ books = [], onDelete }) {
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+
+  const navigate = useNavigate();
 
   // Sorting logic
   const sortedBooks = [...books].sort((a, b) => {
@@ -91,6 +95,8 @@ function BookTable({ books = [] }) {
                   : "▼"
                 : ""}
             </th>
+            <th>Update</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -101,6 +107,21 @@ function BookTable({ books = [] }) {
               <td>{book.author}</td>
               <td>{book.genre}</td>
               <td>{book.stock}</td>
+              <td className="text-center">
+                <FaEdit
+                  style={{ cursor: "pointer", color: "#007bff" }}
+                  onClick={() => navigate(`/book-update/${book.id}`)}
+                />
+              </td>
+              <td>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => onDelete(book.id)}
+                >
+                  <FaTrash />
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>

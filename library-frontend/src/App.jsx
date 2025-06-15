@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MainLayout from "./layouts/ MainLayout";
+import AuthorsPage from "./pages/AuthorsPage";
 
 function App() {
   const isLoggedIn = !!localStorage.getItem("user");
@@ -29,6 +30,16 @@ function App() {
             <ProtectedRoute>
               <MainLayout>
                 <Dashboard />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/authors"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <AuthorsPage />
               </MainLayout>
             </ProtectedRoute>
           }

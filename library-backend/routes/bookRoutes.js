@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllBooks,
   getBookByStock,
+  getBookById,
   getBookByTitle,
   getBooksByGenreDescription,
   createBook,
@@ -15,6 +16,8 @@ const router = express.Router();
 router.get("/", getAllBooks);
 
 router.get("/details", getBookDetails);
+
+router.get("/byid/:id", getBookById);
 
 router.get("/stock", getBookByStock);
 

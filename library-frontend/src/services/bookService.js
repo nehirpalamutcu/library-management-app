@@ -11,3 +11,16 @@ export const getAllBooks = async () => {
     throw error;
   }
 };
+
+export const deleteBookById = async (id) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/books/deleteBook`, {
+      data: { id },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting books: ", error);
+    throw error;
+  }
+};
