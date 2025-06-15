@@ -21,7 +21,7 @@ function AppNavbar() {
           <Nav className="me-auto">
             <Nav.Link href="/dashboard">Home</Nav.Link>
             <Nav.Link href="/authors">Authors</Nav.Link>
-            <Nav.Link href="/books">Books</Nav.Link>
+            <Nav.Link href="/borrowings">Borrowings</Nav.Link>
           </Nav>
           {user && (
             <span className="me-3 text-light">

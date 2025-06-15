@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MainLayout from "./layouts/ MainLayout";
 import AuthorsPage from "./pages/AuthorsPage";
+import BorrowingsPage from "./pages/BorrowingsPage";
 
 function App() {
   const isLoggedIn = !!localStorage.getItem("user");
@@ -40,6 +41,16 @@ function App() {
             <ProtectedRoute>
               <MainLayout>
                 <AuthorsPage />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/borrowings"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <BorrowingsPage />
               </MainLayout>
             </ProtectedRoute>
           }

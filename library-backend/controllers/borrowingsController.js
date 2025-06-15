@@ -5,6 +5,36 @@ export const getAllBorrowings = (req, res) => {
       res.json(results);
     });
   };
+  
+  export const getAllBorrowingss = (req, res) => {
+    const query = `
+      SELECT 
+        CONCAT(a.first_name, ' ', IFNULL(a.last_name, '')) AS author,
+        a.id AS author_id,
+        b.title AS title,
+        tbs.description AS description,
+        tbs.description AS borrow_status,
+        br.borrow_date,
+        br.due_date
+      FROM borrowings br
+      INNER JOIN users u ON u.id = br.user_id
+      INNER JOIN books b ON b.id = br.book_id
+      INNER JOIN authors a ON a.id = br.author_id
+      INNER JOIN t_borrow_status tbs ON tbs.id = br.borrow_status_id
+    `;
+  
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error("Error fetching borrowings:", err.message);
+        return res.status(500).json({ error: "Database error" });
+      }
+  
+      res.json(results);
+    });
+  };
+  
+  
+  
 
   export const getBorrowingById = (req, res) => {
     const borrowingId = req.params.id;

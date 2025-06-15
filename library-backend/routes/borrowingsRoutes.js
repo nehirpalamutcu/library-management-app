@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getAllBorrowings,
+  getAllBorrowingss,
   getBorrowingById,
   getBorrowingsByUserId,
   createBorrowing,
@@ -14,7 +15,10 @@ const router = express.Router();
 router.get("/user/:user_id", getBorrowingsByUserId); 
 
 
-router.get("/", getAllBorrowings);
+
+
+
+router.get("/", getAllBorrowingss);
 
 
 router.get("/:id", getBorrowingById); 
