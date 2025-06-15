@@ -27,3 +27,4 @@ export const addBorrowing = async (data) => {
   const res = await axios.post(`${BASE_URL}/borrowings`, data);
   return res.data;
 };
+

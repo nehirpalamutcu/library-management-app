@@ -11,7 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import MainLayout from "./layouts/ MainLayout";
 import AuthorsPage from "./pages/AuthorsPage";
 import BorrowingsPage from "./pages/BorrowingsPage";
-
+import FinesPage from "./pages/FinesPage";
 function App() {
   const isLoggedIn = !!localStorage.getItem("user");
 
@@ -55,6 +55,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+        path="/fines"
+          element={
+           <ProtectedRoute>
+             <MainLayout>
+               <FinesPage />
+             </MainLayout>
+           </ProtectedRoute>
+  }
+           />
 
         {/* Catch-all route */}
         <Route

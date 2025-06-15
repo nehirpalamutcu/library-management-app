@@ -6,10 +6,17 @@ import BorrowingsTable from "../components/BorrowingsTable"; // burası önemli
 function BorrowingsPage() {
   const [borrowings, setBorrowings] = useState([]);
 
+  const fetchBorrowings = async () => {
+    try {
+      const allBorrowingss = await getAllBorrowingss();
+      setBorrowings(allBorrowingss);
+    } catch (err) {
+      console.error("Error fetching Borrowings:", err);
+    }
+  };
+
   useEffect(() => {
-    getAllBorrowingss().then((data) => {
-      setBorrowings(data);
-    });
+    fetchBorrowings();
   }, []);
 
   return (
@@ -21,4 +28,5 @@ function BorrowingsPage() {
 }
 
 export default BorrowingsPage;
+
 

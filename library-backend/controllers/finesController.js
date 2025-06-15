@@ -2,17 +2,27 @@ import db from "../db.js";
 
 // GET /fines → Get all fines
 export const getAllFines = (req, res) => {
-  const query = "SELECT * FROM fines";
+  const query = `
+    SELECT 
+      CONCAT(u.first_name, ' ', IFNULL(u.last_name, '')) AS user,
+      b.due_date,
+      f.return_date,
+      f.fine_amount
+    FROM fines f
+    INNER JOIN users u ON u.id = f.user_id
+    INNER JOIN borrowings b ON b.id = f.borrowing_id
+  `;
 
   db.query(query, (err, results) => {
     if (err) {
       console.error("Error fetching fines:", err.message);
-      return res.status(500).json({ error: "Failed to fetch fines" });
+      return res.status(500).json({ error: "Database error" });
     }
 
     res.json(results);
   });
 };
+
 
 // GET /fines/:id → Get fine by ID
 export const getFineById = (req, res) => {

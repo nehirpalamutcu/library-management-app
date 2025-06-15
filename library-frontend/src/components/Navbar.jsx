@@ -22,6 +22,7 @@ function AppNavbar() {
             <Nav.Link href="/dashboard">Home</Nav.Link>
             <Nav.Link href="/authors">Authors</Nav.Link>
             <Nav.Link href="/borrowings">Borrowings</Nav.Link>
+            <Nav.Link href="/fines">Fines</Nav.Link>
           </Nav>
           {user && (
             <span className="me-3 text-light">
