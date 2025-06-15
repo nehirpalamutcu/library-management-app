@@ -12,6 +12,7 @@ import MainLayout from "./layouts/ MainLayout";
 import AuthorsPage from "./pages/AuthorsPage";
 import BorrowingsPage from "./pages/BorrowingsPage";
 import FinesPage from "./pages/FinesPage";
+import UserPage from "./pages/UserPage";
 function App() {
   const isLoggedIn = !!localStorage.getItem("user");
 
@@ -65,6 +66,17 @@ function App() {
            </ProtectedRoute>
   }
            />
+           <Route
+        path="/user"
+          element={
+           <ProtectedRoute>
+             <MainLayout>
+               <UserPage />
+             </MainLayout>
+           </ProtectedRoute>
+  }
+           />
+           
 
         {/* Catch-all route */}
         <Route

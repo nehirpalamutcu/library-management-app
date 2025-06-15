@@ -1,5 +1,28 @@
 import db from "../db.js";
+export const getAllUsers = (req, res) => {
+  const query = `
+    SELECT 
+      u.id,
+      u.first_name,
+      u.last_name,
+      u.email,
+      u.phone_number,
+      r.description AS role
+    FROM users u
+    INNER JOIN t_roles r ON r.id = u.role_id
+  `;
 
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching users:", err.message);
+      return res.status(500).json({ error: "Database error" });
+    }
+
+    res.json(results);
+  });
+};
+
+/*
 export const getAllUsers = (req, res) => {
   const query = "select * from users";
 
@@ -12,6 +35,7 @@ export const getAllUsers = (req, res) => {
     res.json(results);
   });
 };
+*/
 
 export const loginUser = (req, res) => {
   const { email, password } = req.body;
