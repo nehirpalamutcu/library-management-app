@@ -130,26 +130,38 @@ export const updateAuthor = (req, res) => {
   });
 };
 
-// DELETE /authors/deleteAuthor - Delete author by ID from body
 export const deleteAuthor = (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   if (!id) {
     return res.status(400).json({ error: "Author ID is required." });
   }
 
-  const query = "DELETE FROM authors WHERE id = ?";
-
-  db.query(query, [id], (err, result) => {
+  const checkBooksQuery = "SELECT * FROM books WHERE author_id = ?";
+  db.query(checkBooksQuery, [id], (err, books) => {
     if (err) {
-      console.error("Error deleting author:", err.message);
-      return res.status(500).json({ error: "Failed to delete author." });
+      console.error("Error checking books:", err.message);
+      return res.status(500).json({ error: "Internal server error." });
     }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Author not found." });
+    if (books.length > 0) {
+      return res
+        .status(400)
+        .json({ error: "This author has books and cannot be deleted." });
     }
 
-    res.json({ message: "Author deleted successfully." });
+    const deleteQuery = "DELETE FROM authors WHERE id = ?";
+    db.query(deleteQuery, [id], (err, result) => {
+      if (err) {
+        console.error("Error deleting author:", err.message);
+        return res.status(500).json({ error: "Failed to delete author." });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: "Author not found." });
+      }
+
+      res.status(200).json({ message: "Author deleted successfully." });
+    });
   });
 };

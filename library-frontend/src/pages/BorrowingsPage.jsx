@@ -21,4 +21,3 @@ function BorrowingsPage() {
 }
 
 export default BorrowingsPage;
-

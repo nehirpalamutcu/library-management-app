@@ -11,3 +11,17 @@ export const getAllAuthors = async () => {
     throw error;
   }
 };
+
+export const createAuthor = async (authorData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/authors`, authorData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating author:", error);
+    throw error;
+  }
+};
+
+export const deleteAuthor = async (authorId) => {
+  return axios.delete(`${API_BASE_URL}/authors/deleteAuthor/${authorId}`);
+};

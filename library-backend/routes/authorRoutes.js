@@ -20,6 +20,6 @@ router.post("/", createAuthor);
 
 router.patch("/updateAuthor", updateAuthor);
 
-router.delete("/deleteAuthor", deleteAuthor);
+router.delete("/deleteAuthor/:id", deleteAuthor);
 
 export default router;
