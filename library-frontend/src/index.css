@@ -1,0 +1,22 @@
+/* Reset & global box-sizing */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Make root and body take full screen */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9f5; /* Optional: light gray background */
+}
+
+/* Anchor tag reset (Bootstrap's override) */
+a {
+  text-decoration: none;
+  color: inherit;
+}

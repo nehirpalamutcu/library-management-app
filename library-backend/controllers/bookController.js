@@ -22,7 +22,7 @@ export const getBookDetails = (req, res) => {
       g.description AS genre,
       b.genre_id,
       b.release_date,
-      CONCAT(a.first_name, ' ', a.last_name) AS author,
+      CONCAT(a.first_name, ' ', IFNULL(a.last_name, '')) AS author,
       b.author_id
     FROM books b
     JOIN authors a ON b.author_id = a.id

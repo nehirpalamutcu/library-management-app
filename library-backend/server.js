@@ -12,6 +12,7 @@ import genreRoutes from "./routes/genreRoutes.js";
 import fineCoefficientsRoutes from "./routes/fineCoefficientRoutes.js";
 import roleRoutes from "./routes/roleRoutes.js";
 import userCredentialsRoutes from "./routes/userCredentialRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 import finesRoutes from "./routes/finesRoutes.js";
 dotenv.config();
@@ -48,6 +49,9 @@ app.use("/user-credentials", userCredentialsRoutes);
 
 // Fines routes
 app.use("/fines", finesRoutes);
+
+// User routes
+app.use("/users", userRoutes);
 
 // Start server
 const PORT = process.env.PORT || 3000;

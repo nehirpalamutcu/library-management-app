@@ -1,0 +1,17 @@
+/* Optional: page wrapper for padding */
+.page-wrapper {
+  padding: 2rem;
+}
+
+/* Optional: center text in NotFound or Dashboard */
+.center-text {
+  text-align: center;
+  padding-top: 2rem;
+}
+
+/* Example styling for title */
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
